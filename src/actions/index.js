@@ -1,5 +1,6 @@
 import axios from 'axios';
 const ROOT_URL = 'http://localhost:3000';
+axios.defaults.withCredentials = true;
 
 export const USER_REGISTERED = 'USER_REGISTERED';
 export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
@@ -25,7 +26,7 @@ export const register = (username, password, confirmPassword, history) => {
       .then(() => {
         dispatch({
           type: USER_REGISTERED,
-        });
+        })
         history.push('/signin');
       })
       .catch(() => {
@@ -66,7 +67,7 @@ export const logout = () => {
 export const getUsers = () => {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/restricted/users`)
-      .then(()=> {
+      .then((response)=> {
         dispatch({
           type: GET_USERS,
           payload: response.data
